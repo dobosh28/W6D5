@@ -2,8 +2,9 @@ require 'action_view'
 
 class Cat < ApplicationRecord
     include ActionView::Helpers::DateHelper
-    validates :sex, inclusion: { in: [:M, :F]},  presence: true #needs to be plural because it could be multiple columns that need verification
-    validates :color, inclusion: { in: :CAT_COLORS}, presence: true
+    CAT_COLORS = %w(orange grey black purple blue).freeze
+    validates :sex, inclusion: { in: %w(M F)},  presence: true #needs to be plural because it could be multiple columns that need verification
+    validates :color, inclusion: {in: CAT_COLORS}, presence: true
     validate :birth_date_cannot_be_future #when validating a function it should be singular
 
     def birth_date_cannot_be_future
